@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}Make a Prediction{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Make a Drug Effectiveness Prediction</h2>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            {% csrf_token %}
+            
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.age_group.id_for_label }}">{{ form.age_group.label }}</label>
+                        {{ form.age_group.errors }}
+                        <select name="{{ form.age_group.name }}" id="{{ form.age_group.id_for_label }}" class="form-control">
+                            {% for value, text in form.age_group.field.choices %}
+                                <option value="{{ value }}">{{ text }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="{{ form.sex.id_for_label }}">{{ form.sex.label }}</label>
+                        {{ form.sex.errors }}
+                        <select name="{{ form.sex.name }}" id="{{ form.sex.id_for_label }}" class="form-control">
+                            {% for value, text in form.sex.field.choices %}
+                                <option value="{{ value }}">{{ text }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="{{ form.condition.id_for_label }}">{{ form.condition.label }}</label>
+                {{ form.condition.errors }}
+                <input type="text" name="{{ form.condition.name }}" id="{{ form.condition.id_for_label }}" class="form-control">
+                <small class="form-text text-muted">Example: Hypertension, Diabetes, Asthma, etc.</small>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="{{ form.drugs.id_for_label }}">{{ form.drugs.label }}</label>
+                {{ form.drugs.errors }}
+                <textarea name="{{ form.drugs.name }}" id="{{ form.drugs.id_for_label }}" class="form-control" rows="3"></textarea>
+                <small class="form-text text-muted">{{ form.drugs.help_text }} (Example: Atorvastatin, Lisinopril, Metformin)</small>
+            </div>
+            
+            <div class="form-group mb-3">
+                <label for="{{ form.symptoms.id_for_label }}">{{ form.symptoms.label }}</label>
+                {{ form.symptoms.errors }}
+                <textarea name="{{ form.symptoms.name }}" id="{{ form.symptoms.id_for_label }}" class="form-control" rows="3"></textarea>
+                <small class="form-text text-muted">{{ form.symptoms.help_text }} (Example: Headache, Fatigue, Dizziness)</small>
+            </div>
+            
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Predict Effectiveness</button>
+                <a href="{% url 'prediction_app:index' %}" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

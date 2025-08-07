@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Drug Effectiveness Prediction{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-12 text-center">
+        <h1 class="display-4 mb-4">Drug Effectiveness Prediction</h1>
+        <p class="lead">Predict the effectiveness of drugs based on patient characteristics, symptoms, and medical conditions.</p>
+        <hr class="my-4">
+        <p>This application uses machine learning with explainable AI (XAI) to predict how effective a drug might be for specific patients and conditions.</p>
+        <div class="mt-5">
+            <a href="{% url 'prediction_app:predict' %}" class="btn btn-primary btn-lg">Make a Prediction</a>
+            <a href="{% url 'prediction_app:prediction_list' %}" class="btn btn-secondary btn-lg ms-3">View Prediction History</a>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">How It Works</h5>
+                <p class="card-text">Our model uses XGBoost with SHAP (SHapley Additive exPlanations) to provide transparent predictions you can trust.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Evidence-based</h5>
+                <p class="card-text">Recommendations are based on analysis of drug effectiveness data across multiple conditions and demographics.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Explainable AI</h5>
+                <p class="card-text">Understand why predictions are made with visual explanations showing the factors that influenced each result.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

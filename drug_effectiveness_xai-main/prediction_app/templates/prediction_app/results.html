@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Prediction Results{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h2>Prediction Results</h2>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Predicted Effectiveness Score</h4>
+                <div class="progress mb-3" style="height: 30px;">
+                    {% with score=prediction.effectiveness_score %}
+                    <div class="progress-bar bg-{% if score < 0.4 %}danger{% elif score < 0.7 %}warning{% else %}success{% endif %}" 
+                         role="progressbar" 
+                         style="width: {{ score|floatformat:2|multiply:100 }}%;" 
+                         aria-valuenow="{{ score|floatformat:2|multiply:100 }}" 
+                         aria-valuemin="0" 
+                         aria-valuemax="100">
+                        {{ score|floatformat:2 }}
+                    </div>
+                    {% endwith %}
+                </div>
+                
+                <h4>Patient Information</h4>
+                <table class="table">
+                    <tr>
+                        <th>Age Group:</th>
+                        <td>{{ prediction.age_group }}</td>
+                    </tr>
+                    <tr>
+                        <th>Sex:</th>
+                        <td>{{ prediction.sex }}</td>
+                    </tr>
+                    <tr>
+                        <th>Condition:</th>
+                        <td>{{ prediction.condition }}</td>
+                    </tr>
+                    <tr>
+                        <th>Drugs:</th>
+                        <td>{{ prediction.drugs }}</td>
+                    </tr>
+                    <tr>
+                        <th>Symptoms:</th>
+                        <td>{{ prediction.symptoms }}</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <h4>Explanation (SHAP Values)</h4>
+                <p>The chart below shows the factors that influenced the prediction:</p>
+                <img src="data:image/png;base64,{{ explanation_img }}" class="img-fluid" alt="SHAP Explanation">
+                
+                <div class="alert alert-info mt-3">
+                    <h5>How to interpret this chart:</h5>
+                    <ul>
+                        <li>Red factors pushed the prediction higher</li>
+                        <li>Blue factors pushed the prediction lower</li>
+                        <li>Longer bars indicate stronger influence</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{% url 'prediction_app:predict' %}" class="btn btn-primary">Make Another Prediction</a>
+            <a href="{% url 'prediction_app:index' %}" class="btn btn-secondary">Return to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

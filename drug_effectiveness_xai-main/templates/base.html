@@ -1,0 +1,83 @@
+
+
+
+    
+    
+    {% block title %}Drug Effectiveness Prediction{% endblock %}
+    
+    
+
+
+    
+        
+            Drug Effectiveness XAI
+            
+                
+            
+            
+                How It Works
+                Our model uses XGBoost with SHAP (SHapley Additive exPlanations) to provide transparent predictions you can trust.
+            
+        
+    
+    
+        
+            
+                Evidence-based
+                Recommendations are based on analysis of drug effectiveness data across multiple conditions and demographics.
+            
+        
+    
+    
+        
+            
+                Explainable AI
+                Understand why predictions are made with visual explanations showing the factors that influenced each result.
+            
+        
+    
+
+{% endblock %}collapse navbar-collapse" id="navbarNav">
+                
+                    
+                        Home
+                    
+                    
+                        Make Prediction
+                    
+                    
+                        Prediction History
+                    
+                    {% if user.is_superuser %}
+                    
+                        Train Model
+                    
+                    {% endif %}
+                
+            
+        
+    
+
+    
+        {% if messages %}
+            {% for message in messages %}
+                
+                    {{ message }}
+                    
+                
+            {% endfor %}
+        {% endif %}
+
+        {% block content %}
+        {% endblock %}
+    
+
+    
+        
+            Drug Effectiveness Prediction with XAI &copy; {% now "Y" %}
+        
+    
+
+    
+    
+
